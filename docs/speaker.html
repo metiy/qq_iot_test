@@ -12,18 +12,20 @@
     <pre>
 send message to control the speaker
 
-msg   |  function
-------+--------------------
-stat  |  show player status
-play  |  start play
-stop  |  stop play
->     |  play next
-<     |  play prev
-+     |  volume +
--     |  volume -
-ip    |  get current ip
+msg       |  function
+----------+--------------------
+stat      |  show player status
+play [id] |  start play id
+stop      |  stop play
+>         |  play next song
+<         |  play prev song
++         |  volume +10%
+-         |  volume -10%
+ip        |  get current ip
 
     </pre>
+
+<a href="javascript:void(0);"  onclick=" device.openDeviceMsg();">开始发送命令</a>
 
   </body>
 </html>
