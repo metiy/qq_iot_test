@@ -277,25 +277,25 @@ wifi.sta.eventMonStart(1000)
 
 
 
-httpServer:use('/on', function(req, res)
+httpServer:use('/off', function(req, res)
     gpio.write( IO_LED ,  gpio.LOW )
     print("trigger on")
-
-    res:type('application/json')
-    res:send('{"status":"on"}')
-end)
-
-httpServer:use('/off', function(req, res)
-    gpio.write( IO_LED ,  gpio.HIGH )
-    print("trigger off")
 
     res:type('application/json')
     res:send('{"status":"off"}')
 end)
 
+httpServer:use('/on', function(req, res)
+    gpio.write( IO_LED ,  gpio.HIGH )
+    print("trigger off")
+
+    res:type('application/json')
+    res:send('{"status":"on"}')
+end)
+
 gpiolight = { }
-gpiolight[0] = "on"
-gpiolight[1] = "off"
+gpiolight[0] = "off"
+gpiolight[1] = "on"
 
 httpServer:use('/status', function(req, res)
     print("trigger status")
