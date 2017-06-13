@@ -1,3 +1,16 @@
+-------------
+-- define
+-------------
+IO_LED    = 4
+IO_BTN_CFG= 3
+
+TMR_WIFI  = 4
+TMR_BLINK = 5
+TMR_BTN   = 6
+
+ssid   = 'please modify this'
+passwd = 'please modify this'
+
 --------------------
 -- helper
 --------------------
@@ -9,11 +22,11 @@ end
 
 function guessType(filename)
     local contentTypes = {
-        ['.css'] = 'text/css', 
-        ['.js'] = 'application/javascript', 
+        ['.css']  = 'text/css', 
+        ['.js']   = 'application/javascript', 
         ['.html'] = 'text/html',
-        ['.png'] = 'image/png',
-        ['.jpg'] = 'image/jpeg'
+        ['.png']  = 'image/png',
+        ['.jpg']  = 'image/jpeg'
     }
     for ext, type in pairs(contentTypes) do
         if string.sub(filename, -string.len(ext)) == ext
@@ -26,7 +39,7 @@ end
 
 function getStatusText(code)
     local status = {
-        [1] = 'Informational', [2] = 'Success', [3] = 'Redirection', [4] = 'Client Error', [5] = 'Server Error',
+        [1]   = 'Informational', [2] = 'Success', [3] = 'Redirection', [4] = 'Client Error', [5] = 'Server Error',
         [200] = 'OK',
         [301] = 'Moved Permanently', [302] = 'Found',
         [403] = 'Forbidden', [404] = 'Not Found'
@@ -40,9 +53,9 @@ end
 -- Response
 --------------------
 Response = {
-    _skt = nil,
-    _type = nil,
-    _status = nil,
+    _skt         = nil,
+    _type        = nil,
+    _status      = nil,
     _redirectUrl = nil,
 }
 
@@ -222,16 +235,6 @@ end
 
 -------------------main function-----------------------
 
--------------
--- define
--------------
-IO_LED = 4
-IO_BTN_CFG = 3
-
-TMR_WIFI = 4
-TMR_BLINK = 5
-TMR_BTN = 6
-
 gpio.mode(IO_LED, gpio.OUTPUT ,  gpio.FLOAT)
 gpio.write(IO_LED, gpio.LOW)
 gpio.mode(IO_BTN_CFG, gpio.INT)
@@ -244,7 +247,7 @@ end)
 -- wifi
 -------------
 print('Setting up WIFI...')
-wifi.sta.config('dd-new', '1q2w3e4r')
+wifi.sta.config(ssid, passwd)
 wifi.setmode(wifi.STATION)
 wifi.sta.autoconnect(1)
 
