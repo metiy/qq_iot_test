@@ -1,15 +1,15 @@
 -------------
 -- define
 -------------
-IO_LED    = 4
+dofile("wifi.lua")
+
+IO_SWITCH = 5
 IO_BTN_CFG= 3
 
 TMR_WIFI  = 4
 TMR_BLINK = 5
 TMR_BTN   = 6
 
-ssid   = 'please modify this'
-passwd = 'please modify this'
 
 --------------------
 -- helper
@@ -235,8 +235,8 @@ end
 
 -------------------main function-----------------------
 
-gpio.mode(IO_LED, gpio.OUTPUT ,  gpio.FLOAT)
-gpio.write(IO_LED, gpio.LOW)
+gpio.mode(IO_SWITCH, gpio.OUTPUT ,  gpio.FLOAT)
+gpio.write(IO_SWITCH, gpio.LOW)
 gpio.mode(IO_BTN_CFG, gpio.INT)
 
 gpio.trig(IO_BTN_CFG, 'up', function()
@@ -246,7 +246,9 @@ end)
 -------------
 -- wifi
 -------------
+
 print('Setting up WIFI...')
+
 wifi.sta.config(ssid, passwd)
 wifi.setmode(wifi.STATION)
 wifi.sta.autoconnect(1)
@@ -278,7 +280,7 @@ wifi.sta.eventMonStart(1000)
 
 
 httpServer:use('/off', function(req, res)
-    gpio.write( IO_LED ,  gpio.LOW )
+    gpio.write( IO_SWITCH ,  gpio.LOW )
     print("trigger on")
 
     res:type('application/json')
@@ -286,7 +288,7 @@ httpServer:use('/off', function(req, res)
 end)
 
 httpServer:use('/on', function(req, res)
-    gpio.write( IO_LED ,  gpio.HIGH )
+    gpio.write( IO_SWITCH ,  gpio.HIGH )
     print("trigger off")
 
     res:type('application/json')
@@ -301,7 +303,7 @@ httpServer:use('/status', function(req, res)
     print("trigger status")
 
     res:type('application/json')
-    res:send('{"status":"' .. gpiolight[gpio.read( IO_LED )] .. '"}')
+    res:send('{"status":"' .. gpiolight[gpio.read( IO_SWITCH )] .. '"}')
 end)
 
 print("start http server ")
