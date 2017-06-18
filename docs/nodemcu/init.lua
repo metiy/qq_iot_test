@@ -4,11 +4,6 @@
 dofile("wifi.lua")
 
 IO_SWITCH = 5
-IO_BTN_CFG= 3
-
-TMR_WIFI  = 4
-TMR_BLINK = 5
-TMR_BTN   = 6
 
 
 --------------------
@@ -236,12 +231,6 @@ end
 -------------------main function-----------------------
 
 gpio.mode(IO_SWITCH, gpio.OUTPUT ,  gpio.FLOAT)
-gpio.write(IO_SWITCH, gpio.LOW)
-gpio.mode(IO_BTN_CFG, gpio.INT)
-
-gpio.trig(IO_BTN_CFG, 'up', function()
-    print("on btn")
-end)
 
 -------------
 -- wifi
